@@ -1,3 +1,5 @@
 <template>
-    <div>排行</div>
+    <div>
+        <p>排行</p>
+    </div>
 </template>

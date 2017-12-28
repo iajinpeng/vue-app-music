@@ -16,16 +16,34 @@
                     <router-link to="search" class="nav-link">搜索</router-link>
                 </div>
             </div>
+            <div class="music-view">
+                <router-view/>
+            </div>
         </div>
-        <router-view/>
     </div>
 </template>
 
 <script>
-	import './index.css'
     import './App.styl'
+	import './assets/stylus/reset.styl'
+	import './assets/stylus/font.styl'
 	export default {
 		name: 'app'
 	}
 </script>
+<style>
+    body, html, #app{
+        width: 100%;
+        height: 100%;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    ::-webkit-scrollbar{
+        width: 0;
+        height: 0;
+    }
+</style>
 

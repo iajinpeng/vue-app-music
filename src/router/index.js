@@ -4,18 +4,22 @@ import HelloWorld from '@/components/HelloWorld'
 import Recommend from '@/components/recommend/Recommend'
 import Search from '@/components/search/Search'
 import Ranking from '@/components/ranking/Ranking'
+import Album from '@/components/album/Album'
 
 Vue.use(Router)
 
 const routes = [
-	{
-		path: '/',
-		name: 'HelloWorld',
-		component: HelloWorld
-	},
+	{path: '/', redirect: '/recommend'},
 	{
 		path: '/recommend',
-		component: Recommend
+		component: Recommend,
+		children: [
+			{
+				path:'/recommend/:id',
+				name: 'album',
+				component: Album
+			}
+		]
 	},
 	{
 		path: '/search',
@@ -23,9 +27,9 @@ const routes = [
 	},
 	{
 		path: '/ranking',
-		component: Ranking
+		component: Ranking,
 	},
-]
+];
 export default new Router({
 	mode: 'history',
 	routes,
