@@ -1,40 +1,42 @@
 <template>
-    <div class="music-album">
-        <music-header :title="album.name"></music-header>
-        <div style="position: relative;">
-            <div ref="albumBg" class="album-img" :style="`background-image: url(${album.img})`">
-                <div class="filter"></div>
+    <transition name="slide">
+        <div class="music-album">
+            <music-header :title="album.name"></music-header>
+            <div style="position: relative;">
+                <div ref="albumBg" class="album-img" :style="`background-image: url(${album.img})`">
+                    <div class="filter"></div>
+                </div>
+                <div ref="albumFixedBg" class="album-img fixed" :style="`background-image: url(${album.img})`">
+                    <div class="filter"></div>
+                </div>
+                <div class="play-wrapper" ref="playButtonWrapper">
+                    <div class="play-button">
+                        <i class="icon-play"></i><span>播放全部</span>
+                    </div>
+                </div>
             </div>
-            <div ref="albumFixedBg" class="album-img fixed" :style="`background-image: url(${album.img})`">
-                <div class="filter"></div>
-            </div>
-            <div class="play-wrapper" ref="playButtonWrapper">
-                <div class="play-button">
-                    <i class="icon-play"></i><span>播放全部</span>
+            <div ref="albumContainer" class="album-container">
+                <div class="album-scroll" v-show="!loading">
+                    <Scroll :refresh="refreshScroll" @scroll="scroll">
+                        <div class="album-wrapper" slot="content">
+                            <div class="song-count">专辑 共{{songs.length}}首</div>
+                            <div class="song-list">
+                                <div class="song" v-for="(song, index) in songs" :key="index">
+                                    <div class="song-name">{{song.name}}</div>
+                                    <div class="song-singer">{{song.singer}}</div>
+                                </div>
+                            </div>
+                            <div class="album-info" v-if="album.desc">
+                                <h1 class="album-title">专辑简介</h1>
+                                <div class="album-desc">{{album.desc}}</div>
+                            </div>
+                        </div>
+                    </Scroll>
+                    <Loading title="正在加载..." :show="loading"></Loading>
                 </div>
             </div>
         </div>
-        <div ref="albumContainer" class="album-container">
-            <div class="album-scroll" v-show="!loading">
-                <Scroll :refresh="refreshScroll" @scroll="scroll">
-                    <div class="album-wrapper" slot="content">
-                        <div class="song-count">专辑 共{{songs.length}}首</div>
-                        <div class="song-list">
-                            <div class="song" v-for="(song, index) in songs" :key="index">
-                                <div class="song-name">{{song.name}}</div>
-                                <div class="song-singer">{{song.singer}}</div>
-                            </div>
-                        </div>
-                        <div class="album-info" v-if="album.desc">
-                            <h1 class="album-title">专辑简介</h1>
-                            <div class="album-desc">{{album.desc}}</div>
-                        </div>
-                    </div>
-                </Scroll>
-                <Loading title="正在加载..." :show="loading"></Loading>
-            </div>
-        </div>
-    </div>
+    </transition>
 </template>
 <script>
     import MusicHeader from '@/common/header/Header'
