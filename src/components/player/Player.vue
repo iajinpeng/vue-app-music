@@ -62,7 +62,7 @@
 			}
 		},
 		computed: {
-			...mapGetters(['showStatus', 'song', 'allSongs']),
+			...mapGetters(['showStatus', 'song', 'songs']),
 			playBg(){
 				return this.song.img ? this.song.img : '../../assets/imgs/play_bg.jpg';
 			}

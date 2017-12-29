@@ -6,4 +6,4 @@ export const showStatus = state => state.showStatus
 
 export const song = state => state.song
 
-export const songs = state => state.allSongs
+export const songs = state => state.songs

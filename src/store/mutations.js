@@ -14,7 +14,7 @@ export default {
 	},
 
 	[types.SET_SONGS] (state, {songs}){
-		state.allSongs = songs
+		state.songs = songs
 	},
 
 	[types.REMOVE_SONG_FROM_LIST] (state, {id}){

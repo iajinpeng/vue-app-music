@@ -61,9 +61,6 @@
         refreshScroll: false,
       }
     },
-		computed: {
-			...mapGetters(['showStatus', 'song', 'allSongs'])
-		},
     methods: {
 			...mapActions(['showPlayer', 'changeSong', 'removeSong', 'setSongs']),
       getSongUrl(song, mId) {
