@@ -9,28 +9,28 @@ import Album from '@/components/album/Album'
 Vue.use(Router)
 
 const routes = [
-	{path: '/', redirect: '/recommend'},
-	{
-		path: '/recommend',
-		component: Recommend,
-		children: [
-			{
-				path:'/recommend/:id',
-				name: 'album',
-				component: Album
-			}
-		]
-	},
-	{
-		path: '/search',
-		component: Search
-	},
-	{
-		path: '/ranking',
-		component: Ranking,
-	},
+  {path: '/', redirect: '/recommend'},
+  {
+    path: '/recommend',
+    component: Recommend,
+    children: [
+      {
+        path: '/recommend/:id',
+        name: 'album',
+        component: Album
+      }
+    ]
+  },
+  {
+    path: '/search',
+    component: Search
+  },
+  {
+    path: '/ranking',
+    component: Ranking,
+  },
 ];
 export default new Router({
-	mode: 'history',
-	routes,
+  mode: 'history',
+  routes,
 })
