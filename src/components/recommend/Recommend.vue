@@ -15,10 +15,17 @@
       <div class="album-container">
         <h1 class="title">最新专辑</h1>
         <div class="album-list">
-          <album-item v-for="(item, index) in newAlbums"
-                      @click.native="toAlbumDetail(item)"
-                      :info="item" :key="index">
-          </album-item>
+					<div class="album-wrapper" @click="toAlbumDetail(album)"
+							 v-for="album in newAlbums.map(item => albumCreateByList(item))">
+						<div class="left">
+							<img :src="album.img" :alt="album.name" width="100%" height="100%">
+						</div><!--
+        --><div class="right">
+						<div class="album-name">{{album.name}}</div>
+						<div class="singer-name">{{album.singer}}</div>
+						<div class="public-time">{{album.publicTime}}</div>
+					</div>
+					</div>
         </div>
       </div>
     </div>
@@ -33,14 +40,14 @@
   import Swiper from 'swiper'
   import Scroll from '@/common/scroll/Scroll'
   import Loading from '@/common/loading/Loading'
-  import AlbumItem from './Album-item.vue'
+	import * as AlbumModel from '@/model/album'
 
   import './recommend.styl';
   import 'swiper/dist/css/swiper.css'
 
   export default {
     components: {
-      AlbumItem, Scroll, Loading
+      Scroll, Loading
     },
     data() {
       return {
@@ -53,9 +60,11 @@
     },
     methods: {
       toAlbumDetail(album) {
-        let url = this.$route.path + '/' + album.album_mid;
-        this.$router.push({name: 'album', params: {id: album.album_mid}});
-      }
+        this.$router.push({name: 'album', params: {id: album.mId}});
+      },
+			albumCreateByList(list){
+				return AlbumModel.createAlbumByList(list)
+			}
     },
     mounted() {
       getCarousel().then((res) => {
