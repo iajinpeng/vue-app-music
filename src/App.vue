@@ -19,16 +19,19 @@
       <div class="music-view">
         <router-view/>
       </div>
+			<music-player />
     </div>
   </div>
 </template>
 
 <script>
+	import MusicPlayer from './components/player/MusicPlayer.vue'
   import './App.styl'
   import './assets/stylus/reset.styl'
   import './assets/stylus/font.styl'
 
   export default {
+		components: {MusicPlayer},
     name: 'app'
   }
 </script>

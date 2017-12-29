@@ -9,7 +9,7 @@
         <div ref="albumFixedBg" class="album-img fixed" :style="`background-image: url(${album.img})`">
           <div class="filter"></div>
         </div>
-        <div class="play-wrapper" ref="playButtonWrapper">
+        <div class="play-wrapper" ref="playButtonWrapper" @click="playAll">
           <div class="play-button">
             <i class="icon-play"></i><span>播放全部</span>
           </div>
@@ -21,7 +21,7 @@
             <div class="album-wrapper">
               <div class="song-count">专辑 共{{songs.length}}首</div>
               <div class="song-list">
-                <div class="song" v-for="(song, index) in songs" :key="index">
+                <div class="song" v-for="(song, index) in songs" :key="index" @click="selectSong(song)">
                   <div class="song-name">{{song.name}}</div>
                   <div class="song-singer">{{song.singer}}</div>
                 </div>
@@ -47,6 +47,7 @@
   import {CODE_SUCCESS} from '@/api/config'
   import * as AlbumModel from '@/model/album'
   import * as SongModel from '@/model/song'
+	import { mapGetters, mapActions } from 'vuex'
 
   import './album.styl'
 
@@ -60,7 +61,11 @@
         refreshScroll: false,
       }
     },
+		computed: {
+			...mapGetters(['showStatus', 'song', 'allSongs'])
+		},
     methods: {
+			...mapActions(['showPlayer', 'changeSong', 'removeSong', 'setSongs']),
       getSongUrl(song, mId) {
         getSongVKey(mId).then((res) => {
           if (res && res.code === CODE_SUCCESS) {
@@ -71,6 +76,18 @@
           }
         })
       },
+			selectSong(song){  //选择歌曲
+				this.$store.dispatch('setSongs', [song]);
+				this.$store.dispatch('changeSong', song);
+				this.$store.dispatch('showPlayer', true);
+			},
+			playAll(){  //播放全部
+				if(this.songs.length !== 0){
+					this.$store.dispatch('setSongs', this.songs);
+					this.$store.dispatch('changeSong', this.songs[0]);
+					this.$store.dispatch('showPlayer', true);
+				}
+			},
       scroll({y}) {
         let albumBgDOM = this.$refs.albumBg;
         let albumFixedBgDOM = this.$refs.albumFixedBg;
