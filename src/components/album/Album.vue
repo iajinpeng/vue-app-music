@@ -74,15 +74,16 @@
         })
       },
 			selectSong(song){  //选择歌曲
-				this.$store.dispatch('setSongs', [song]);
-				this.$store.dispatch('changeSong', song);
-				this.$store.dispatch('showPlayer', true);
+				this.setSongs([song]);
+				this.changeSong(song);
+				this.showPlayer(true);
+
 			},
 			playAll(){  //播放全部
 				if(this.songs.length !== 0){
-					this.$store.dispatch('setSongs', this.songs);
-					this.$store.dispatch('changeSong', this.songs[0]);
-					this.$store.dispatch('showPlayer', true);
+					this.setSongs(this.songs);
+					this.changeSong(this.songs[0]);
+					this.showPlayer(false);
 				}
 			},
       scroll({y}) {
