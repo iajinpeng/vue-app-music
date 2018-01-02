@@ -1,6 +1,8 @@
 <template>
 	<div class="music-player">
-		<Player></Player>
+		<Player @show-list="showList"
+			:currentIndex.sync="currentSongIndex">
+		</Player>
 	</div>
 </template>
 <script>
@@ -8,5 +10,16 @@
 
 	export default {
 		components: {Player},
+		data(){
+			return {
+				currentSongIndex: 0,
+				show: false,
+			}
+		},
+		methods: {
+			showList(status){
+				this.show = status;
+			}
+		}
 	}
 </script>

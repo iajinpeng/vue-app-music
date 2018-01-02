@@ -9,8 +9,8 @@
         <div ref="albumFixedBg" class="album-img fixed" :style="`background-image: url(${album.img})`">
           <div class="filter"></div>
         </div>
-        <div class="play-wrapper" ref="playButtonWrapper" @click="playAll">
-          <div class="play-button">
+        <div class="play-wrapper" ref="playButtonWrapper">
+          <div class="play-button" @click="playAll">
             <i class="icon-play"></i><span>播放全部</span>
           </div>
         </div>
@@ -83,7 +83,7 @@
 				if(this.songs.length !== 0){
 					this.setSongs(this.songs);
 					this.changeSong(this.songs[0]);
-					this.showPlayer(false);
+					this.showPlayer(true);
 				}
 			},
       scroll({y}) {
