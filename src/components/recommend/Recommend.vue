@@ -1,6 +1,5 @@
 <template>
-  <Scroll :refresh="refreshScroll">
-
+  <Scroll :refresh="refreshScroll" @pulldown="handlePullDown">
     <div class="music-recommend">
       <div class="slider-container">
         <div class="swiper-wrapper">
@@ -31,7 +30,6 @@
     </div>
     <Loading title="正在加载..." :show="loading"></Loading>
     <router-view/>
-
   </Scroll>
 </template>
 <script>
@@ -58,14 +56,6 @@
         sliderSwiper: null,
       }
     },
-    methods: {
-      toAlbumDetail(album) {
-        this.$router.push({name: 'album', params: {id: album.mId}});
-      },
-			albumCreateByList(list){
-				return AlbumModel.createAlbumByList(list)
-			}
-    },
     mounted() {
       getCarousel().then((res) => {
         console.log('获取轮播图数据');
@@ -88,22 +78,38 @@
           }
         }
       });
-      getNewAlbum().then((res) => {
-        console.log('获取最新专辑');
-        if (res) {
-          console.log(res);
-          if (res.code === CODE_SUCCESS) {
-            //根据发布时间降序
-            let albumList = res.albumlib.data.list;
-            albumList.sort((a, b) => {
-              return new Date(b.public_time).getTime() - new Date(a.public_time).getTime();
-            });
-            this.loading = false;
-            this.newAlbums = albumList;
-            this.refreshScroll = true;
-          }
-        }
-      })
-    }
+      this.getNewAlbum();
+    },
+		methods: {
+			toAlbumDetail(album) {
+				this.$router.push({name: 'album', params: {id: album.mId}});
+			},
+			albumCreateByList(list){
+				return AlbumModel.createAlbumByList(list)
+			},
+			handlePullDown({y}){
+				if(y > 50){
+					this.getNewAlbum();
+				}
+			},
+			getNewAlbum(){
+				getNewAlbum().then((res) => {
+					console.log('获取最新专辑');
+					if (res) {
+						console.log(res);
+						if (res.code === CODE_SUCCESS) {
+							//根据发布时间降序
+							let albumList = res.albumlib.data.list;
+							albumList.sort((a, b) => {
+								return new Date(b.public_time).getTime() - new Date(a.public_time).getTime();
+							});
+							this.loading = false;
+							this.newAlbums = albumList;
+							this.refreshScroll = true;
+						}
+					}
+				})
+			}
+		},
   }
 </script>

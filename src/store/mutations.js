@@ -18,6 +18,6 @@ export default {
 	},
 
 	[types.REMOVE_SONG_FROM_LIST] (state, id){
-		state.songs.filter(song => song.id !== id)
+		state.songs = state.songs.filter(song => song.id !== id)
 	}
 }

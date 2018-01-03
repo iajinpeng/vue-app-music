@@ -17,7 +17,9 @@
         </div>
       </div>
       <div class="music-view">
-        <router-view/>
+				<keep-alive>
+					<router-view/>
+				</keep-alive>
       </div>
 			<music-player />
     </div>

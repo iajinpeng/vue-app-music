@@ -85,7 +85,7 @@
 				})
 			}
 		},
-		updated(){
+		beforeUpdate(){
 			//组件更新后重新获取进度条总宽度
 			if (!this.progressBarWidth){
 				this.progressBarWidth = this.$refs.progressBar.offsetWidth;

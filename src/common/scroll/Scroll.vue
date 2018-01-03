@@ -12,11 +12,7 @@
       click: {
         type: [Boolean],
         default: true,
-      },
-      refresh: {
-        type: [Boolean],
-        default: false,
-      },
+      }
     },
     data() {
       return {
@@ -37,11 +33,17 @@
             this.$emit('scroll', scroll)
           })
         }
+				//根据父组件是否监听pulldown事件而派发
+				if (this.$listeners.hasOwnProperty('pulldown')) {
+					this.bScroll.on('touchEnd', (pos) => {
+						this.$emit('pulldown', pos)
+					})
+				}
       }
     },
     updated() {
       //组件更新后，如果实例化了better-scroll并且需要刷新就调用refresh()函数
-      if (this.bScroll && this.refresh === true) {
+      if (this.bScroll && this.$listeners.hasOwnProperty('')) {
         this.bScroll.refresh();
       }
     },
@@ -50,6 +52,13 @@
         this.bScroll.off('scroll');
         this.bScroll = null;
       }
-    }
+    },
+		methods: {
+			refresh() {
+				if (this.bScroll) {
+					this.bScroll.refresh();
+				}
+			}
+		}
   }
 </script>

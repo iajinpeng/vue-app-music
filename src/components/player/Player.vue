@@ -23,8 +23,8 @@
 						<span class="current-time">{{getTime(currentTime)}}</span>
 						<div class="play-progress">
 							<Progress :progress="playProgress"
-												@on-drag="hangleDrag"
-												@drag-end="hangleDragEnd">
+												@on-drag="handleDrag"
+												@drag-end="handleDragEnd">
 							</Progress>
 						</div>
 						<span class="total-time">{{getTime(song.duration)}}</span>
@@ -215,7 +215,7 @@
 					this.currentPlayMode++;
 				}
 			},
-			hangleDrag(progress){  //开始拖拽
+			handleDrag(progress){  //开始拖拽
 				let audioDOM = this.$refs.audio;
 				if (audioDOM.duration > 0) {
 					audioDOM.pause();
@@ -224,15 +224,15 @@
 					this.dragProgress = progress;
 				}
 			},
-			hangleDragEnd(){  //拖拽结束
-				let audio = this.$refs.audio;
-				if (audio.duration > 0) {
-					let currentTime = audio.duration * this.dragProgress;
+			handleDragEnd(){  //拖拽结束
+				let audioDOM = this.$refs.audio;
+				if (audioDOM.duration > 0) {
+					let currentTime = audioDOM.duration * this.dragProgress;
 					this.playProgress = this.dragProgress;
 					this.currentTime = currentTime;
 					this.$nextTick(() => {
-						audio.currentTime = currentTime;
-						audio.play();
+						audioDOM.currentTime = currentTime;
+						audioDOM.play();
 						this.startImgRotate();
 						this.playStatus = true;
 						this.dragProgress = 0;

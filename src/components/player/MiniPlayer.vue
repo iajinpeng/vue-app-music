@@ -42,7 +42,9 @@
 				}
 			},
 			handlePlayOrPause(){
-				this.$emit('playOrPause')
+				if(this.song.url){
+					this.$emit('playOrPause')
+				}
 			},
 			handleNext(){
 				this.$emit('next')
