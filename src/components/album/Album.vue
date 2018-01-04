@@ -101,7 +101,7 @@
 			},
 			selectSong(song){  //选择歌曲
 				this.addSongs([song]);
-//				this.changeSong(song);
+				this.changeSong(song);
 				this.showPlayer(true);
 				this.autoPlay(true);
 			},

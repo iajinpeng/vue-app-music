@@ -27,7 +27,6 @@ export default {
 
 	[types.ADD_SONGS] (state, songs){
 		state.songs = unique(state.songs.concat(songs));
-		state.song = songs[0];
 	}
 }
 
