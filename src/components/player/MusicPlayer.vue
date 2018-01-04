@@ -1,10 +1,8 @@
 <template>
 	<div class="music-player">
-		<Player @show-list="showList"
-						:currentIndex.sync="currentSongIndex">
+		<Player @show-list="showList">
 		</Player>
-		<Player-list :currentIndex.sync="currentSongIndex"
-								 @show-list="showList"
+		<Player-list @show-list="showList"
 								 :show="show">
 		</Player-list>
 	</div>
@@ -17,8 +15,7 @@
 		components: {Player, PlayerList},
 		data(){
 			return {
-				currentSongIndex: 0,
-				show: false,
+				show: false
 			}
 		},
 		methods: {

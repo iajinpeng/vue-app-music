@@ -34,7 +34,18 @@
 
   export default {
 		components: {MusicPlayer},
-    name: 'app'
+    name: 'app',
+		created(){
+			var songs = localStorage.getItem('my-song-cache');
+			console.log(JSON.parse(songs))
+			if(songs){
+				this.$store.dispatch('setSongs', JSON.parse(songs));
+				this.$store.dispatch('changeSong', JSON.parse(songs)[0]);
+			}
+		},
+		beforeDestroy(){
+			console.log('销毁以前')
+		}
   }
 </script>
 <style>

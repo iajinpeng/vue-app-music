@@ -14,7 +14,7 @@
     props: ['title'],
     methods: {
       goBack() {
-        window.history.back();
+        this.$router.back();
       }
     }
   }

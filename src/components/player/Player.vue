@@ -68,7 +68,6 @@
 
 	export default {
 		components: {Progress, MiniPlayer},
-		props: ['currentIndex'],
 		data(){
 			return {
 				currentTime: 0,
@@ -80,8 +79,17 @@
 				currentPlayMode: 0,
 			}
 		},
+		watch: {
+			songs(songs){
+				localStorage.setItem('my-song-cache', JSON.stringify(songs));
+			}
+		},
 		computed: {
-			...mapGetters(['showStatus', 'song', 'songs']),
+			...mapGetters(['showStatus', 'song', 'songs', 'autoplay']),
+
+			currentIndex(){
+				return this.songs.indexOf(this.song)
+			},
 			playBg(){
 				return this.song.img ? this.song.img : '/src/assets/imgs/play_bg.jpg';
 			},
@@ -99,11 +107,12 @@
 		},
 		mounted(){
 			let audioDOM = this.$refs.audio;
-
 			audioDOM.addEventListener('canplay', () => {
-				audioDOM.play();
-				this.startImgRotate();
-				this.playStatus = true;
+				if(this.autoplay){
+					audioDOM.play();
+					this.startImgRotate();
+					this.playStatus = true;
+				}
 			}, false);
 			audioDOM.load();  //加载资源，ios需要调用此方法
 			audioDOM.addEventListener('timeupdate', () => {

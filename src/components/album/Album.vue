@@ -17,7 +17,7 @@
 			</div>
 			<div ref="albumContainer" class="album-container">
 				<div class="album-scroll" v-show="!loading">
-					<Scroll :refresh="refreshScroll" @scroll="scroll">
+					<Scroll @scroll="scroll">
 						<div class="album-wrapper">
 							<div class="song-count">专辑 共{{songs.length}}首</div>
 							<div class="song-list">
@@ -58,7 +58,6 @@
 				loading: true,
 				album: {},
 				songs: [],
-				refreshScroll: false,
 			}
 		},
 		mounted() {
@@ -89,7 +88,7 @@
 			})
 		},
 		methods: {
-			...mapActions(['showPlayer', 'changeSong', 'removeSong', 'setSongs']),
+			...mapActions(['showPlayer', 'changeSong', 'removeSong', 'addSongs', 'autoPlay']),
 			getSongUrl(song, mId) {
 				getSongVKey(mId).then((res) => {
 					if (res && res.code === CODE_SUCCESS) {
@@ -101,16 +100,17 @@
 				})
 			},
 			selectSong(song){  //选择歌曲
-				this.setSongs([song]);
-				this.changeSong(song);
+				this.addSongs([song]);
+//				this.changeSong(song);
 				this.showPlayer(true);
-
+				this.autoPlay(true);
 			},
 			playAll(){  //播放全部
 				if (this.songs.length !== 0) {
-					this.setSongs(this.songs);
+					this.addSongs(this.songs);
 					this.changeSong(this.songs[0]);
 					this.showPlayer(true);
+					this.autoPlay(true);
 				}
 			},
 			scroll({y}) {

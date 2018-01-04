@@ -12,14 +12,14 @@
 						<div class="play-list">
 							<Scroll ref="scroll">
 								<div>
-									<div class="play-list-item" v-for="(song, index) in songs">
+									<div class="play-list-item" v-for="(songItem, index) in songs">
 										<div class="item-left">{{index + 1 < 10 ? `0${index + 1}` : index + 1}}</div>
 										<div class="item-right">
-											<div class="song" :class="{current: index === currentIndex}" @click="playSong(song, index)">
-												<span class="song-name">{{song.name}}</span>
-												<span class="song-singer">{{song.singer}}</span>
+											<div class="song" :class="{current: songItem.mId === song.mId}" @click="playSong(songItem, index)">
+												<span class="song-name">{{songItem.name}}</span>
+												<span class="song-singer">{{songItem.singer}}</span>
 											</div>
-											<i class="icon-delete delete" @click="removeSong(song.id)"></i>
+											<i class="icon-delete delete" @click="removeSong(songItem.id)"></i>
 										</div>
 									</div>
 								</div>
@@ -43,7 +43,7 @@
 				showList: false,
 			}
 		},
-		props: ['show', 'currentIndex'],
+		props: ['show'],
 		computed: {
 			...mapGetters(['song', 'songs']),
 		},

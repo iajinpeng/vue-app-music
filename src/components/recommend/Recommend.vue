@@ -1,5 +1,5 @@
 <template>
-	<Scroll :refresh="refreshScroll" @pulldown="handlePullDown" @scroll="handleScroll">
+	<Scroll ref="scroll" @pulldown="handlePullDown" @scroll="handleScroll">
 		<div class="music-recommend">
 			<pull-down :height="pullDownHeight"></pull-down>
 			<div class="slider-container">
@@ -54,11 +54,14 @@
         loading: true,
         slideList: [],
         newAlbums: [],
-        refreshScroll: false,
         sliderSwiper: null,
 				pullDownHeight: 0,
       }
     },
+		beforeRouteLeave(to, from, next){
+			this.$refs.scroll.refresh();
+    	next();
+		},
     mounted() {
       getCarousel().then((res) => {
         console.log('获取轮播图数据');
@@ -111,7 +114,7 @@
 							});
 							this.loading = false;
 							this.newAlbums = albumList;
-							this.refreshScroll = true;
+							this.$refs.scroll.refresh();
 						}
 					}
 				})

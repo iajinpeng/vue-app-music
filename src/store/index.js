@@ -12,6 +12,7 @@ Vue.use(Vuex);
 
 const state = {
 	showStatus: false,
+	playStatus: false,  //是否播放
 	song: {},  //当前歌曲
 	songs: [],  //歌曲列表
 }
