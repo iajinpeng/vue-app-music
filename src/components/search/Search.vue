@@ -89,7 +89,7 @@
 			})
 		},
 		methods: {
-			...mapActions(['showPlayer', 'changeSong', 'setSongs']),
+			...mapActions(['showPlayer', 'changeSong', 'selectAndAutoplay']),
 
 			handleCancel(){
 				this.w = '';
@@ -115,9 +115,7 @@
 									if(res.data.items){
 										let item = res.data.items[0];
 										data.url =  `http://dl.stream.qqmusic.qq.com/${item.filename}?vkey=${item.vkey}&guid=3655047200&fromtag=66`;
-										this.setSongs([data]);
-										this.changeSong(data);
-										this.showPlayer(true);
+										this.selectAndAutoplay([data]);
 									}
 								}
 							}

@@ -94,7 +94,7 @@
 				return AlbumModel.createAlbumByList(list)
 			},
 			handlePullDown({y}){
-				if(y > 50){
+				if(this.$router.history.current.name === 'recommend' && y > 50){  //修正子路由页面scroll也会请求的问题
 					this.getNewAlbum();
 				}
 			},

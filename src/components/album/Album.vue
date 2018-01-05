@@ -88,7 +88,7 @@
 			})
 		},
 		methods: {
-			...mapActions(['showPlayer', 'changeSong', 'removeSong', 'addSongs', 'autoPlay']),
+			...mapActions(['showPlayer', 'changeSong', 'selectAndAutoplay']),
 			getSongUrl(song, mId) {
 				getSongVKey(mId).then((res) => {
 					if (res && res.code === CODE_SUCCESS) {
@@ -100,17 +100,11 @@
 				})
 			},
 			selectSong(song){  //选择歌曲
-				this.addSongs([song]);
-				this.changeSong(song);
-				this.showPlayer(true);
-				this.autoPlay(true);
+				this.selectAndAutoplay(song);
 			},
 			playAll(){  //播放全部
 				if (this.songs.length !== 0) {
-					this.addSongs(this.songs);
-					this.changeSong(this.songs[0]);
-					this.showPlayer(true);
-					this.autoPlay(true);
+					this.selectAndAutoplay(this.songs);
 				}
 			},
 			scroll({y}) {

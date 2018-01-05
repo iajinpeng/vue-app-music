@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Recommend from '@/components/recommend/Recommend'
 import Search from '@/components/search/Search'
 import Ranking from '@/components/ranking/Ranking'
@@ -12,6 +11,7 @@ const routes = [
   {path: '/', redirect: '/recommend'},
   {
     path: '/recommend',
+	  name: 'recommend',
     component: Recommend,
     children: [
       {
