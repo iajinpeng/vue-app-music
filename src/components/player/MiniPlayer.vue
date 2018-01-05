@@ -1,7 +1,7 @@
 <template>
 	<div class="mini-player" v-show="!showStatus" @click="hangleShow">
 		<div class="player-img rotate" :style="imgStyle">
-			<img :src="song.img || '/src/assets/imgs/music.png'" :alt="song.name">
+			<img :src="song.img || defaultImg" :alt="song.name">
 		</div>
 		<div class="player-center">
 			<div class="progress-wrapper">
@@ -21,10 +21,16 @@
 	import { mapGetters, mapActions } from 'vuex'
 	import Progress from './Progress.vue'
 	import './miniplayer.styl'
+	import defaultImg from '@/assets/imgs/music.png'
 
 	export default{
 		components: {Progress},
 		props: ['progress', 'song', 'showStatus', 'playStatus'],
+		data(){
+			return {
+				defaultImg
+			}
+		},
 		computed: {
 			imgStyle(){
 				if(this.playStatus){

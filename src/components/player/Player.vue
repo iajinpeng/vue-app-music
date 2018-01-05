@@ -91,7 +91,7 @@
 				return this.songs.indexOf(this.song)
 			},
 			playBg(){
-				return this.song.img ? this.song.img : '/src/assets/imgs/play_bg.jpg';
+				return this.song.img ? this.song.img : require('@/assets/imgs/play_bg.jpg');
 			},
 			currentSongUrl(){
 				if (this.song && this.song.url) {
