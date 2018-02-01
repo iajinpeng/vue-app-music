@@ -17,7 +17,7 @@
 			</div>
 			<div ref="albumContainer" class="album-container">
 				<div class="album-scroll" v-show="!loading">
-					<Scroll @scroll="scroll">
+					<Scroll :scroll="scroll">
 						<div class="album-wrapper">
 							<div class="song-count">专辑 共{{songs.length}}首</div>
 							<div class="song-list">

@@ -1,5 +1,5 @@
 <template>
-	<Scroll ref="scroll" @pulldown="handlePullDown" @scroll="handleScroll">
+	<Scroll ref="scroll" :pulldown="handlePullDown" :scroll="handleScroll">
 		<div class="music-recommend">
 			<pull-down :height="pullDownHeight"></pull-down>
 			<div class="slider-container">
